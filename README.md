@@ -78,6 +78,22 @@ our next unit we're going to look at relative versus absolute paths.
 
 # Relative and Absolute Paths
 
+## What is it?
+
+Relative vs absolute paths for file access.
+
+
+## What does it do?
+
+Defines where on a file system we store our files and how we access them; whether using relative or absolute paths.
+
+
+## How do you use it?
+
+Decide on the layout of your file structure, and determine which method is best for your project.
+
+LESSON:
+
 But, there's nothing to stop us from opening files in other directories too.
 So, let's do this. Let's create a subdirectory in our project called "files".
 There are a couple of ways of doing this. We can right-click on our project and
@@ -183,3 +199,51 @@ lines to our file. So, let's delete it and let's run our script again. And, this
 when we open it up and ask Cloud9 to reload it for us, then we can see that we
 have everything on nice neat new lines. So, that's how to write a file in Python.
 Our next unit will look at file access modes.
+
+# File Access Modes
+
+## What is it?
+
+File access modes are the different arguments passed to the 'open' command.
+
+
+## What does it do?
+
+They allow the file to be opened for reading, writing, appending or a combination of these.
+
+
+## How do you use it?
+
+Supply different file access modes as the second argument to the 'open' command.
+
+
+LESSON:
+
+So, now we're going to take a look at file access modes. The second argument to
+the file 'open' command is the access mode, which specifies the actions that can be
+performed on the file when it's opened, such as reading, writing or appending
+etc. You've already encountered these in the form of 'r', 'w and 'a' modes for
+read, write and append. These are going to be the ones you use the most
+often, but there are others, so we'll take a run through all of the
+modes now. The first one, as we said, is the 'r' or read mode. This only allows you
+to read from a file and if it doesn't exist, then it will throw an error. The 'w'
+mode only allows you to write to a file and if that file doesn't exist, then a
+new one will be created. The 'a' for append, that we've already come across, allows
+you to append to a file, which means to write new content after the existing
+content. Again, if it doesn't exist a new file will be created. The 'r+' mode is for
+read and write. This allows you to read and write to a file. If it doesn't exist
+it will throw an error. If it does exist, then its contents will be overwritten.
+'w+' for read and write again is the same as 'r+', but a new file will be created if it
+doesn't exist instead of an error being thrown. And, 'a+' is for read and append. This
+is the same as 'w+', but the file is opened for append, so the existing content won't
+be overwritten. 'rb', 'wb' and 'ab' are exactly the same as 'r', 'w' and 'a', but for binary data
+instead of text. Now, you'll normally use 'r', 'w' and 'a', but since 'r' is used most
+often then you can use open without the last argument and, if you do that, then it
+means read-only. That means that typing this...is exactly the same as
+typing this...
+
+Now, these different file modes can be confusing, particularly when we're
+opening a file for read and write, or read and append at the same time. So, in
+the upcoming units we're going to explore these access modes in more
+detail, but first let's look at how our position in a file is tracked while we
+read and write its contents. We'll do that in our next unit.
