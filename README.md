@@ -304,3 +304,90 @@ demonstrate file i/o, but to really get a feel for how it works then we need
 quicker feedback than we can get from just writing and running scripts. So in
 the next lesson we're going to use the Python console or Python shell as it's
 also known to manipulate files.
+
+# Console File Access - Part One
+ 
+## What is it?
+
+Using the interactive Python console to manipulate files.
+
+
+## What does it do?
+
+The Python console gives us more instant feedback, so we can use it to read, write and append to files.
+
+
+## How do you use it?
+
+Open the Python console in the terminal window, and type in the commands interactively.
+
+LESSON:
+
+In this unit, we're going to have a look at how to access files from the Python
+console. The Python console is an example of what's known as a REPL, R E P L
+which stands for Read, Evaluate, Print and Loop. REPLs are an increasingly common
+tool in modern programming languages. They're very useful because they allow
+us to execute code in real time from the command line. We can then see and react
+to results. We can manipulate variables and data in memory directly rather than
+by having to write scripts and run them. So, to run the Python console simply type
+python3 at the command prompt. As we can see, this opens the Python console.
+Whenever we see the >>> arrows here, that indicates that we're in
+the console and from here we can type Python code. We can declare then use
+variables. Let's see an example of that now. If we declare a variable called 'x'
+and give it a value of 20, 'y' and give that the value of 5 and then print(x - y)
+then we can see in real time we get the value of 15. So, now that we know
+the basics of using the console, let's use it to manipulate some files. So, we'll
+do like we did in previous units. We'll declare a file handle 'f' and we'll ask
+this to open a file, which we'll call data.txt. We'll use the 'w' flag because we're
+going to open it for writing. Then we're going to write the string 'Hello,
+World'.
+
+Now, notice that the write command returns the number 11. That's the length
+of the message that we've written. If you count the number of characters in 'Hello
+World' including spaces, then we get the number 11. But, if we were to open the
+data txt file now in our Cloud9 editor would we expect to see 'Hello World'. Well,
+surprisingly it's empty! Why is that? Well, the reason is that the new contents that
+we've written are in a buffer. They aren't actually written to the file
+until we use f.close() to close it. We can trigger the writing of the buffer
+to the file while keeping it open by using a method we haven't seen yet,
+which is the flush method. So, if we run f.flush(), and now we open the data.txt
+file, Cloud9 tells us that it's changed on the
+disk. When we reload it, we can see that our contents 'Hello World' are now
+there. So, now let's close the file using the close method. Similarly, we can append
+to a file just the same as we would by writing to a file. We just change the
+access mode. Let's do that again. So, we're going to open data.txt. This
+time, we're going to open it in append mode. We're going to write 'Appended Line
+1' and then we'll put a new line. We'll write 'Appended Line 2', and we'll put a
+new line. Notice each time we do this, again, we get the length of our message
+back. And, we'll do 'Appended Line 3' and we'll put a new line. So, again, these
+are written, if we then close the file the contents of the buffer will be
+written. And we can see, above in our editor, that the
+file has changed and now we have our three appended lines. We can also read
+files from the console as well this way. So, again this is a case of just changing
+the access flag and using a different method. We'll open the file for
+reading this time. We'll use the read flag, we'll then read everything from the file
+into lines, and then we'll print the lines. So, there we have the content
+of our file 'Hello World', and then our three appended lines. So, let's close that.
+Now that we know how to read write and append to files we can use the Python
+console to see what effect these operations have on the file cursor
+position. To do that, we use the tell() method. So, let's open our data.txt file
+for reading again. Now, we'll use the tell() method and that will tell us the
+position of the cursor in our file. For a newly opened file, the cursor is always
+at position 0. Whenever we read the contents of the file, the cursor position
+is advanced. So, let's read the contents of our file and let's run f.tell() again.
+And now we have 59 as our cursor position. This is useful because, using
+another method the seek() method, we can move the cursor to a specific position.
+For example, to move the cursor back to the start of the file we would seek to
+position zero. This allows us to read the contents of the file again without re-opening
+it. So, let's do that. We can see that it actually tells us where the file
+cursor is now after we've run seek(), but let's run the tell method again just to
+confirm that. Sure enough, our file cursor is at position zero. Whenever we
+write to a file, it also moves the cursor. Let's close this, and let's open it again
+for writing. So, remember to use the 'w' flag for writing. So, where is the cursor
+now? Well, it's at position 0. If we do f.write("Hello")
+we get 5 back because that's the length of our message. Let's do it again, f.write("World")
+we get 5 back because that's the length of our message. Where is the file
+cursor now? Well let's check it with the tell() method. It's at position 10, and let's
+finally close our file. So, we can see that when we write to a file it advances
+the file cursor forward. In our next video, we're going to have a look at how
+the read and write methods affect the file cursor, and set some challenges too.
