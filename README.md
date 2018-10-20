@@ -391,3 +391,210 @@ cursor now? Well let's check it with the tell() method. It's at position 10, and
 finally close our file. So, we can see that when we write to a file it advances
 the file cursor forward. In our next video, we're going to have a look at how
 the read and write methods affect the file cursor, and set some challenges too.
+
+## Output from Console: 
+
+~/workspace (master) $ python3
+Python 3.4.3 (default, Nov 17 2016, 01:08:31) 
+[GCC 4.8.4] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> x = 20
+>>> y = 5
+>>> print(x-y)
+15
+>>> f = ("data.txt", "w")
+>>> f.write("Hello World")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'tuple' object has no attribute 'write'
+>>> f = open("data.txt", "w")
+>>> f.write("Hello World")
+11
+>>> f.close()
+>>> f.flush()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ValueError: I/O operation on closed file.
+>>> f = open("data.txt, "a")
+  File "<stdin>", line 1
+    f = open("data.txt, "a")
+                         ^
+SyntaxError: invalid syntax
+>>> f = open("data.txt", "a")
+>>> f.write("Appended Line 1\n")
+16
+>>> f.write("Appended Line 2\n")                                                                             
+16
+>>> f.write("Appended Line 3\n")                                                                             
+16
+>>> f.close()
+>>> f = open("data.txt", "r")
+>>> lines = f.read()
+>>> print(lines)
+Hello WorldAppended Line 1
+Appended Line 2
+Appended Line 3
+
+>>> f = open("data.txt", "r")
+>>> f.tell()
+0
+>>> text = f.read()
+>>> f.tell()
+59
+>>> f.seek(0)
+0
+>>> f.tell()
+0
+>>> f = open("data.txt", "w")
+>>> tell()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'tell' is not defined
+>>> f = open("data.txt", "w")
+>>> f.tell()
+0
+>>> f.close()
+>>> f.write("Hello")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ValueError: I/O operation on closed file.
+>>> f.write("Hello")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ValueError: I/O operation on closed file.
+>>> f = open("data.txt", "w")
+>>> f.tell()
+0
+>>> f.write("Hello")
+5
+>>> f.write("World")
+5
+>>> f.tell()
+10
+>>> f.close()
+>>> 
+
+
+# Console File Access - Part Two
+ 
+## What is it?
+
+Using the interactive Python console to manipulate files.
+
+
+## What does it do?
+
+The Python console gives us more instant feedback, so we can use it to read, write and append to files.
+
+
+## How do you use it?
+
+Open the Python console in the terminal window, and type in the commands interactively.
+
+LESSON:
+
+In this video, we round out our discussion of file access from the
+Python console. And, as we said, we're going to look at the read plus write
+methods. Things get very interesting when we're using these methods if we don't know
+what we're doing - and interesting is another word for confusing. So, to
+demonstrate how these work, we're going to have a look at them now. We deleted
+our data.txt file, so let's create it back again. And, we're just going to add some
+content to it. I'm going to add three lines: Line 1, Line 2, and Line 3. I'm
+going to finish this file with a new line and then save it. Ok, so now you can
+run the following code - either in the Python console or you can create a
+Python script - it's entirely up to you. By this stage you'll be comfortable with
+both methods. I'm going to use the console just to keep doing what we were
+doing before. So, let's open this file that we just created, for reading and
+writing. Again, f = open. The file is date.txt, and we're going to open it
+for reading plus writing. Let's read all of the content into the lines
+variable again, and we'll print them.
+Everything is doing what we would expect so far. Now, what do you think will happen
+if we try to write to this file as well? Now, we said in the previous unit - in one
+of the previous units - that read plus, which is what we've opened it as here,
+overwrites the file. So if we write('Line 4'), and let's put a new line at the end
+of it, then where would we expect it to be written? Well, let's close the file
+and see what happens. As we can see from the example above, what actually happened
+is that 'Line 4' has been written at the end of the file. Why is that? Well, the
+reason is that we opened the file and the cursor would be at position zero. The
+contents of the file were then read into the lines variable as we said, but
+remember what that does. It advances the file cursor to the end of the file.
+So, now when 'Line 4' is written to the file, it's written at the end because the
+cursor was moved. Let's try a different example let's put our data.txt file
+back to three lines and we'll save it. And, we'll do this again, but this time
+we're not going to read the data in. So, f=open("data.txt") and we're going
+to open it for reading plus writing. This time, we'll just add some text without
+moving the cursor. Now what happens? Well, as you can see in the pane above, it's
+overwritten the first line. The cursor is at the beginning of the file when we
+first open it, but we don't do any read so the cursor doesn't move. When we write
+the word like we have here, it overwrites the start of the file contents. Now, this
+is important to know because, although we said that the read+ file access mode
+overwrites the file, it actually overwrites whatever position the cursor is
+at. So, if you've moved the cursor to the end of the file then it will actually
+function very similar to an append. So, that leads us to ask, then, what does
+append+ do? Let's change our data file back to Line 1, Line 2, and Line 3
+and now we'll open it for append so open date.txt, and we'll open it for
+append+. So, that's reading and appending. Now, at the moment let's just
+see where our cursor is. It's at 21, right at the end of our file. So,
+let's set it back to zero. So, now our cursor is at the beginning of the file.
+Now, if we write some text again, where do you expect this to go? At the beginning?
+At the end? Somewhere else? Well, let's close the file and have a look.
+Interestingly, we see that this goes at the end of the file because, even though
+we've actually made sure that the cursor is at the start of the file by using
+seek, the new content was still written to the end of the file. That's the
+big difference between opening a file for read + write or read + append. In
+append mode, new writes always go to the end of the file. So, there's an
+interesting benefit to using this append mode because that means that you can
+move the cursor around within the file for the purposes of reading, but if you
+need to add data on at the end then it will always be added with the append, you
+don't actually need to move the cursor back to the end in order to get the data
+there. As you can see, this behavior has the potential to be very confusing, so
+take some time to have a look at these different file access modes and
+experiment with them either through the console here or using a Python script. So,
+we've nearly concluded our discussion of Python file i/o. Have a look at the
+challenges below. See if you can experiment with the write+ access
+mode and write some example code to understand how it works and then using
+the access modes that we've discussed today see if you can create a file and
+then replace data as specific positions in that file.
+In our concluding unit we're going to have a walkthrough of a mini project - a
+quiz program that brings together everything we've learned over the past
+few units.
+
+## Output from Console:
+
+dee2018:~/workspace (master) $ python3
+Python 3.4.3 (default, Nov 17 2016, 01:08:31) 
+[GCC 4.8.4] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> f = open("data.txt", "r+")
+>>> f.write(lines)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'lines' is not defined
+>>> lines = f.read()
+>>> print(lines)
+Line 1
+Line 2
+Line 3
+
+>>> f.write("Line 4\n")                                                                                      
+7
+>>> close()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'close' is not defined
+>>> f.close()
+>>> f = open("data.txt", "r+")
+>>> f.write("foo")
+3
+>>> f.close()
+>>> f = open("data.txt", "a+")
+>>> f.tell()
+22
+>>> f.seek(0)
+0
+>>> f.write("Foo")
+3
+>>> f.close()
+>>> 
+
+
